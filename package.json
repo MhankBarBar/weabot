@@ -1,0 +1,33 @@
+{
+  "name": "weabot",
+  "version": "1.0.0",
+  "description": "Wea Bot 2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MhankBarBar/weabot.git"
+  },
+  "keywords": [
+    "WhatsAppBot"
+  ],
+  "author": "MhankBarBar",
+  "dependencies": {
+    "@adiwajshing/baileys": "^3.5.2",
+    "axios": "^0.23.0",
+    "cfonts": "^2.10.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "moment-timezone": "^0.5.33",
+    "node-fetch": "^2.6.1",
+    "qrcode-terminal": "^0.12.0",
+    "spinnies": "^0.3.2"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MhankBarBar/weabot/issues"
+  },
+  "homepage": "https://github.com/MhankBarBar/weabot#readme"
+}
