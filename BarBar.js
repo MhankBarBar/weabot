@@ -7,7 +7,7 @@ const {
 	writeFileSync: write
 } = require("fs")
 const { print } = require("./utils/col")
-const { handleCaptcha } = require("./plugins/captcha")
+//const { handleCaptcha } = require("./plugins/captcha")
 const moment = require("moment-timezone")
 
 moment.tz.setDefault('Asia/Jakarta').locale('id')
@@ -26,7 +26,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
 		const groupMembers = isGroup ? groupMetadata.participants : ""
 		const botIsAdminGroup = isGroup ? groupAdmins.includes(BarBar.user.jid) : false
 
-		if (BarBar.captcha && BarBar.captcha[sender] && isGroup && type === "buttonsResponseMessage") handleCaptcha(BarBar, mek)
+		//if (BarBar.captcha && BarBar.captcha[sender] && isGroup && type === "buttonsResponseMessage") handleCaptcha(BarBar, mek)
 
 		const isQuotedImage = quoted && quoted.type === MessageType.image
 		const isQuotedVideo = quoted && quoted.type === MessageType.video
