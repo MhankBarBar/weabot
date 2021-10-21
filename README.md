@@ -21,12 +21,14 @@ Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js
 ```
 
 ### Features ( for now )
-[x] YouTube Audio
-[x] YouTube Video
-[x] TikTok Downloader
-[x] Image to sticker
-[x] Image to sticker burnfire
-[x] Image to sticker lightning
+------------------
+- [x] YouTube Audio
+- [x] YouTube Video
+- [x] TikTok Downloader
+- [x] Image to sticker
+- [x] Image to sticker burnfire
+- [x] Image to sticker lightning
+------------------
 
 ### Support me if you want
 * [`Saweria`](https://saweria.co/mhankbarbar)
