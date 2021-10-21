@@ -148,7 +148,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
                 if (args.length === 0) return mek.reply(`Contoh : ${prefix}ytv https://youtu.be/blabla`)
                 if (isUrl(args[0]) && args[0].includes("youtu")) {
                     try {
-                        let res = await anteicodes.downloader("yta", { url: args[0] })
+                        let res = await anteicodes.downloader("ytv", { url: args[0] })
                         let capt = `Title : ${res.title}\nLikes : ${res.likes}\nViews : ${res.views}`
                         return BarBar.sendVideo(from, res.result, capt, isGroup ? mek : false)
                     } catch (e) {
