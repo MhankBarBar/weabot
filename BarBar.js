@@ -150,8 +150,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
                     try {
                         let res = await anteicodes.downloader("yta", { url: args[0] })
                         let capt = `Title : ${res.title}\nLikes : ${res.likes}\nViews : ${res.views}`
-                        BarBar.sendImage(from, res.thumb, capt, isGroup ? mek : false)
-                        return BarBar.sendAudio(from, res.result, res.title, isGroup ? mek : false)
+                        return BarBar.sendVideo(from, res.result, capt, isGroup ? mek : false)
                     } catch (e) {
                         return mek.reply("Terjadi kesalahan")
                     }
