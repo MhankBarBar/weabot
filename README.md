@@ -4,7 +4,7 @@
 > cd weabot
 ```
 
-### Installation (Termux/Vps)
+### Installation (Termux/Ubuntu/Linux)
 ```bash
 > apt install nodejs
 > apt install ffmpeg
@@ -20,16 +20,11 @@ Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js
 > node . # or npm start ( whatever you want motherfucker )
 ```
 
-### Features ( for now )
+### Features
 ------------------
-- [x] YouTube Audio
-- [x] YouTube Video
+- [x] YouTube Downloader
 - [x] TikTok Downloader
 - [x] Image to sticker
 - [x] Image to sticker burnfire
 - [x] Image to sticker lightning
 ------------------
-
-### Support me if you want
-* [`Saweria`](https://saweria.co/mhankbarbar)
-* [`Paypal`](https://paypal.me/mhankbarbar)

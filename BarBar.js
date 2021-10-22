@@ -11,18 +11,19 @@ const upimg = require("./lib/upimg")
 const anteiku = require("./lib/antei")
 const { getBuffer } = require("./lib/functions")
 const { print } = require("./utils/col")
-//const { handleCaptcha } = require("./plugins/captcha")
-const { ind } = require("./languages")
+const { captcha, sticker, tiktok, yt } = require("./plugins")
+const lang = require("./languages")
 const moment = require("moment-timezone")
 
-moment.tz.setDefault('Asia/Jakarta').locale('id')
+moment.tz.setDefault('Asia/Jakarta').locale("id")
+let bhs = "ind"
 let prefix = "#"
 
 module.exports = msgHndlr = async (BarBar, mek) => {
     try {
         const { from, sender, pushname, body, quoted, timestamp, type, isGroup, isMedia, id, fromMe, getMedia, mentions } = mek
-        const help = new ind(prefix)
-        const anteicodes = new anteiku("Set apikey on here") // signup to antei.codes if you want to get token/apikey
+        const help = new lang[bhs](prefix)
+        const anteicodes = new anteiku("set apikey on here") // signup to antei.codes if you want to get token/apikey
         const cmd = body && body.startsWith(prefix) ? body.slice(1).trim().split(/ +/).shift().toLowerCase() : ""
         const isCmd = body && body.startsWith(prefix) ? true : false
         const args = body ? body.trim().split(/ +/).slice(1) : []
@@ -34,7 +35,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
         const groupMembers = isGroup ? groupMetadata.participants : []
         const botIsAdminGroup = isGroup ? groupAdmins.includes(BarBar.user.jid) : false
 
-        //if (BarBar.captcha && BarBar.captcha[sender] && isGroup && type === "buttonsResponseMessage") handleCaptcha(BarBar, mek)
+        //if (BarBar.captcha && BarBar.captcha[sender] && isGroup && type === "buttonsResponseMessage") captcha.handleCaptcha(BarBar, mek)
 
         const isQuotedImage = quoted && quoted.type === MessageType.image
         const isQuotedVideo = quoted && quoted.type === MessageType.video
@@ -47,116 +48,116 @@ module.exports = msgHndlr = async (BarBar, mek) => {
 
         if (isGroup && isCmd) print(`𓄵green|❑𓄳 ${time} 𓄵green|${cmd}𓄳 from 𓄵blue|${pushname}𓄳 on 𓄵purple|${groupName}𓄳`)
         if (!isGroup && isCmd) print(`𓄵green|❑𓄳 ${time} 𓄵green|${cmd}𓄳 from 𓄵blue|${pushname}𓄳`)
-        if (isGroup && !isCmd) print(`𓄵red|❑𓄳 ${time} 𓄵darkYellow|${isMedia && (type != MessageType.video || type != MessageType.image) ? type.slice(0, type.match("Message").index) : body.length > 20 ? body.slice(0,20)+"..." : body}𓄳 from 𓄵blue|${pushname}𓄳 on 𓄵purple|${groupName}𓄳`)
-        if (!isGroup && !isCmd) print(`𓄵red|❑𓄳 ${time} 𓄵darkYellow|${isMedia && (type != MessageType.video || type != MessageType.image) ? type.slice(0, type.match("Message").index) : body.length > 20 ? body.slice(0,20)+"..." : body}𓄳 from 𓄵blue|${pushname}𓄳`)
+        if (isGroup && !isCmd) print(`𓄵red|❑𓄳 ${time} 𓄵darkYellow|${isMedia && (type !== MessageType.video || type !== MessageType.image) ? type.slice(0, type.match("Message").index) : body.length > 20 ? body.slice(0,20)+"..." : body}𓄳 from 𓄵blue|${pushname}𓄳 on 𓄵purple|${groupName}𓄳`)
+        if (!isGroup && !isCmd) print(`𓄵red|❑𓄳 ${time} 𓄵darkYellow|${isMedia && (type !== MessageType.video || type !== MessageType.image) ? type.slice(0, type.match("Message").index) : body.length > 20 ? body.slice(0,20)+"..." : body}𓄳 from 𓄵blue|${pushname}𓄳`)
 
         switch (cmd) {
             /* -------> [ Help and Menu ] <-------*/
             case "help":
-                return BarBar.sendListMsg(from, help.help(pushname), "𑁍 Fitur yang tersedia 𑁍", help.menuList())
+                return BarBar.sendListMsg(from, help.help(pushname), "Menu", help.menuList())
+
             case "ping":
                 return BarBar.sendText(from, "Pong!!")
+
             case "prefix":
                 prefix = args[0]
                 return BarBar.sendText(from, `Prefix replaced to : ${prefix}`)
+
+            case "setlang":
+                switch (args[0].toLowerCase()) {
+                    case "ind":
+                    case "en":
+                        bhs = args[0].toLowerCase()
+                        return BarBar.sendText(from, "Done")
+                    default:
+                        return
+                }
             /* -------> [ End ] <------- */
 
             /* -----> [ Sticker Maker ] <----- */
             case "stiker":
             case "sticker":
             case "s":
-                if (isMedia && type === MessageType.image || isQuotedImage) {
-                    let buff = isMedia ? await mek.getMedia() : await mek.quoted.getMedia()
-                    return BarBar.sendImageAsSticker(mek, buff)
-                } else {
-                    return mek.reply(`Kirim gambar dengan caption ${prefix}sticker`)
-                }
+                if (isMedia && type === MessageType.image || isQuotedImage) return await sticker.basic(BarBar, mek, help.err(cmd).sticker)
+                return mek.reply(help.err(cmd).sticker[0])
+
             case "stikerburn":
             case "stickerburn":
             case "sburn":
-                if (isMedia && type === MessageType.image || isQuotedImage) {
-                    let buff = isMedia ? await mek.getMedia() : await mek.quoted.getMedia()
-                    write("burn.jpg", buff)
-                    upimg("burn.jpg")
-                    .then(async(x) => {
-                        let buf = await anteicodes.images("burning_fire", { url: x.image.url })
-                        BarBar.sendImageAsSticker(mek, buf)
-                    })
-                    .catch(() => mek.reply("Terjadi kesalahan"))
-                    remove("burn.jpg")
-                    return
-                } else {
-                    return mek.reply(`Kirim gambar dengan caption ${prefix}sburn`)
-                }
+                if (isMedia && type === MessageType.image || isQuotedImage) return await sticker.burning(BarBar, mek, anteicodes, help.err(cmd).sticker)
+                return mek.reply(help.err(cmd).sticker[0])
+
             case "stikerlight":
             case "stickerlight":
             case "slight":
-                if (isMedia && type === MessageType.image || isQuotedImage) {
-                    let buff = isMedia ? await mek.getMedia() : await mek.quoted.getMedia()
-                    write("light.jpg", buff)
-                    upimg("light.jpg")
-                    .then(async(x) => {
-                        let buf = await anteicodes.images("lightning", { url: x.image.url })
-                        BarBar.sendImageAsSticker(mek, buf)
-                    })
-                    .catch((x) => {
-                        console.log(x)
-                        mek.reply("Terjadi kesalahan")
-                    })
-                    remove("light.jpg")
-                    return
-                } else {
-                    return mek.reply(`Kirim gambar dengan caption ${prefix}slight`)
-                }
+                if (isMedia && type === MessageType.image || isQuotedImage) return await sticker.lightning(BarBar, mek, anteicodes, help.err(cmd).sticker)
+                return mek.reply(help.err(cmd).sticker[0])
+
+            case "ttp":
+                if (args.length === 0) return mek.reply(help.err(cmd)[1])
+                return await sticker.ttp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
+
+            case "attp":
+                if (args.length === 0) return mek.reply(help.err(cmd)[1])
+                return await sticker.attp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
             /* ------> [ End ] <------ */
 
             /* ------> [ Downloader ] <-------*/
             case "tiktok":
-                if (args.length === 0) return mek.reply(`Contoh : ${prefix}tiktok https://vt.tiktok.com/blablabla/`)
+                if (args.length === 0) return mek.reply(help.err(cmd).deel)
                 if (isUrl(args[0]) && args[0].includes("tiktok.com")) {
-                    try {
-                        let res = await anteicodes.downloader("tiktok", { url: args[0] })
-                        let capt = `👍 Likes : ${res.likes}\n🗯️ Comments : ${res.comments}\n↪️ Shares : ${res.shares}\n▶️ Plays : ${res.plays}\n🎶 ${res.music.title} (${res.music.author})\n👤 ${res.author.username} (${res.author.name})\n📃 ${res.description}`
-                        return BarBar.sendVideo(from, res.video.url_nowm, capt, isGroup ? mek : false)
-                    } catch (e) {
-                        return mek.reply("Terjadi kesalahan")
-                    }
+                    return await tiktok.tiktod(BarBar, mek, args[0], anteicodes, help)
                 } else {
-                    return mek.reply("Url tidak valid")
+                    return mek.reply(help.err().invalid)
                 }
+
+            case "tikvid":
+                if (args.length === 0) return mek.reply(help.err(cmd).deel)
+                if (isUrl(args[0]) && args[0].includes("tiktok.com")) {
+                    return await tiktok.tikvid(BarBar, mek, args[0], anteicodes, help)
+                } else {
+                    return mek.reply(help.err().invalid)
+                }
+
+            case "tikaud":
+                if (args.length === 0) return mek.reply(help.err(cmd).deel)
+                if (isUrl(args[0]) && args[0].includes("tiktok.com")) {
+                    return await tiktok.tikaud(BarBar, mek, args[0], anteicodes, help)
+                } else {
+                    return mek.reply(help.err().invalid)
+                }
+
             case "tweet":
             case "twitter":
                 return mek.reply("Sedang dalam proses perkembangan")
                 /* TODO */
+
+            case "yt":
+                if (args.length === 0) return mek.reply(help.err(cmd).deel)
+                if (isUrl(args[0]) && args[0].includes("youtu")) {
+                    return await yt.yt(BarBar, mek, args[0], anteicodes, help)
+                } else {
+                    return mek.reply(help.err().invalid)
+                }
+
             case "yta":
             case "ytmp3":
-                if (args.length === 0) return mek.reply(`Contoh : ${prefix}yta https://youtu.be/blabla`)
+                if (args.length === 0) return mek.reply(help.err(cmd).deel)
                 if (isUrl(args[0]) && args[0].includes("youtu")) {
-                    try {
-                        let res = await anteicodes.downloader("yta", { url: args[0] })
-                        let capt = `Title : ${res.title}\nLikes : ${res.likes}\nViews : ${res.views}`
-                        BarBar.sendImage(from, res.thumb, capt, isGroup ? mek : false)
-                        return BarBar.sendAudio(from, res.result, res.title, isGroup ? mek : false)
-                    } catch (e) {
-                        return mek.reply("Terjadi kesalahan")
-                    }
+                    return await yt.yta(BarBar, mek, args[0], anteicodes, help)
                 } else {
-                    return mek.reply("Url tidak valid")
+                    return mek.reply(help.err().invalid)
                 }
+
             case "ytv":
             case "ytmp4":
                 if (args.length === 0) return mek.reply(`Contoh : ${prefix}ytv https://youtu.be/blabla`)
                 if (isUrl(args[0]) && args[0].includes("youtu")) {
-                    try {
-                        let res = await anteicodes.downloader("ytv", { url: args[0] })
-                        let capt = `Title : ${res.title}\nLikes : ${res.likes}\nViews : ${res.views}`
-                        return BarBar.sendVideo(from, res.result, capt, isGroup ? mek : false)
-                    } catch (e) {
-                        return mek.reply("Terjadi kesalahan")
-                    }
+                    return await yt.ytv(BarBar, mek, args[0], anteicodes, help)
                 } else {
-                    return mek.reply("Url tidak valid")
+                    return mek.reply(help.err().invalid)
                 }
+
             case "xnxx":
                 return mek.reply("Sedang dalam proses perkembangan")
                 /* TODO */
