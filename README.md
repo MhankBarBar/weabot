@@ -13,7 +13,7 @@
 ```
 
 ### Configuration
-Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js#L25) section
+Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js#L26) section
 
 ### Run this command when installation is done
 ```bash

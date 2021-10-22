@@ -2,7 +2,7 @@ const { WAConnection: _WAConnection, MessageType, WAConnectOptions, waChatKey, P
 const { print } = require('./utils/col')
 //const welkom = require('./lib/welcome')
 const { getBuffer, banner, start, info, success, close } = require('./lib/functions')
-const { captcha } = require("./plugins/captcha")
+//const { captcha } = require("./plugins/captcha")
 const fs = require('fs')
 
 /*
@@ -82,8 +82,8 @@ async function starts() {
             const mdata = await client.groupMetadata(anu.jid)
             if (anu.action == 'add') {
                 num = anu.participants[0]
-                if (num === client.user.jid) return
-                await captcha(client, num, mdata)
+                return
+                //await captcha(client, num, mdata)
             } else if (anu.action == 'remove') {
                 return
                 /*num = anu.participants[0]
