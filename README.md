@@ -23,7 +23,8 @@ Get anteikey from [this](https://antei.codes) site
     "prefix": "#",
     "lang": "ind",
     "anteikey": "set apikey on here"
-}```
+}
+```
 
 ### Run this command when installation is done
 ```bash
