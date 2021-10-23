@@ -13,7 +13,7 @@
 ```
 
 ### Configuration
-* Set configuration [this](https://github.com/MhankBarBar/weabot/blob/master/src/settings.json) file
+* Set configuration on [this](https://github.com/MhankBarBar/weabot/blob/master/src/settings.json) file
 * Get anteikey from [this](https://antei.codes) site
 ```json
 {

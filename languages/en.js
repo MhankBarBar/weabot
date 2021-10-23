@@ -87,7 +87,7 @@ Features available on this bot
 
     err(cmd) {
         return {
-            sticker: [`Send image with caption *${this.prefix+cmd}*`, `Example : *${this.prefix+cmd} text*`, "An error occurred", `Send image or image with caption *${this.prefix+cmd}*`],
+            sticker: [`Send image with caption *${this.prefix+cmd}*`, `Example : *${this.prefix+cmd} text*`, "An error occurred", `Send image or video with caption *${this.prefix+cmd}*`],
             deel: `Example : *${this.prefix+cmd} url*`,
             invalid: "Invalid url"
         }
