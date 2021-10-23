@@ -13,7 +13,17 @@
 ```
 
 ### Configuration
-Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js#L26) section
+Set configuration [this](https://github.com/MhankBarBar/weabot/blob/master/src/settings.json) file
+Get anteikey from [this](https://antei.codes) site
+```json
+{
+    "owner": [
+        "6285892766102@s.whatsapp.net"
+    ],
+    "prefix": "#",
+    "lang": "ind",
+    "anteikey": "set apikey on here"
+}```
 
 ### Run this command when installation is done
 ```bash
@@ -24,7 +34,8 @@ Set apikey on [this](https://github.com/MhankBarBar/weabot/blob/master/BarBar.js
 ------------------
 - [x] YouTube Downloader
 - [x] TikTok Downloader
-- [x] Image to sticker
+- [x] XnXx Downloader
+- [x] Image/Video to sticker
 - [x] Image to sticker burnfire
 - [x] Image to sticker lightning
 ------------------

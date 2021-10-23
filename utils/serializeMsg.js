@@ -14,6 +14,7 @@ module.exports = serializeMsgObj = (client, mek) => {
     mek.isMedia = mediaType.includes(mek.type)
     if (mek.isMedia) mek.getMedia = async () => await client.decryptMedia(mek)
     if (mek.isMedia) mek.mimetype = mek.message[mek.type].mimetype
+    if (mek.isMedia && (mek.type === MessageType.audio || mek.type === MessageType.video)) mek.duration = mek.message[mek.type].seconds
     mek.quoted = mek.message.contextInfo ? mek.message.contextInfo.quotedMessage : mek.message[mek.type].contextInfo ? mek.message[mek.type].contextInfo.quotedMessage : false //mek.type === "buttonsResponseMessage" && mek.message[mek.type].contextInfo ? mek.message[mek.type].contextInfo.quotedMessage : mek.type === MessageType.extendedText && mek.message[mek.type].contextInfo ? mek.message[mek.type].contextInfo.quotedMessage : mek.message.contextInfo ? mek.message.contextInfo.quotedMessage : false
     mek.mentions = mek.message.contextInfo ? mek.message.contextInfo.mentionedJid : mek.message[mek.type].contextInfo ? mek.message[mek.type].contextInfo.mentionedJid : []
     if (mek.quoted) {

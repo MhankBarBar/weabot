@@ -12,7 +12,6 @@ exports.tiktod = async (BarBar, mek, url, antei, help) => {
 exports.tikaud = async (BarBar, mek, url, antei, help) => {
     try {
         res = await antei.downloader("tiktok", { url: url })
-        //BarBar.sendImage(mek.from, res.music.thumbnail, help.res(res, "tiktok"), mek.isGroup ? mek : false)
         BarBar.sendAudio(mek.from, res.music.url, res.music.title, mek.isGroup ? mek : false)
     } catch (e) {
         console.log(`tikaud err : ${e}`)

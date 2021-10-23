@@ -23,14 +23,9 @@ Fitur yang tersedia pada bot ini
                     rowId: `${this.prefix}tiktok`
                 },
                 {
-                    title: "YouTube Audio",
-                    description: "Mengunduh audio dari YouTube",
-                    rowId: `${this.prefix}yta`
-                },
-                {
-                    title: "YouTube Video",
-                    description: "Mengunduh video dari YouTube",
-                    rowId: `${this.prefix}ytv`
+                    title: "YouTube",
+                    description: "Mengunduh audio/video dari YouTube",
+                    rowId: `${this.prefix}yt`
                 },
                 {
                     title: "Twitter",
@@ -92,7 +87,7 @@ Fitur yang tersedia pada bot ini
 
     err(cmd) {
         return {
-            sticker: [`Kirim gambar dengan caption *${this.prefix+cmd}*`, `Contoh : *${this.prefix+cmd} teks*`, "Terjadi kesalahan"],
+            sticker: [`Kirim gambar dengan caption *${this.prefix+cmd}*`, `Contoh : *${this.prefix+cmd} teks*`, "Terjadi kesalahan", `Kirim gambar atau video dengan caption *${this.prefix+cmd}*`],
             deel: `Contoh : *${this.prefix+cmd} url*`,
             invalid: "Url tidak valid"
         }
@@ -103,7 +98,17 @@ Fitur yang tersedia pada bot ini
             return `👍 Suka : ${res.likes}\n🗯️ Komentar : ${res.comments}\n↪️ Dibagikan : ${res.shares}\n👀 Ditonton : ${res.plays}\n🎶 ${res.music.title} (${res.music.author})\n👤 ${res.author.username} (${res.author.name})\n📃 ${res.description}`
         } else if (type === "youtube") {
             return `📍 Judul : ${res.title}\n👍 Suka: ${res.likes}\n👎 Tidak suka : ${res.dislikes}\n👀 Ditonton : ${res.views}`
+        } else if (type === "xnxx") {
+            return `📍 Judul : ${res.title}\n👀 Ditonton : ${res.views}\n⏳ Durasi : ${res.duration}\n📃 ${res.description}`
         }
+    }
+
+    large(url) {
+        return `Ukuran file terlalu besar, whatsapp tidak bisa mengirim video jika ukurannya terlalu besar\nLink video : ${url}`
+    }
+
+    wait() {
+        return "𓊈BAIKLAH𓊉 Silahkan tunggu ......"
     }
 
     footer() {
@@ -112,7 +117,9 @@ Masukkan perintah ini
 *${this.prefix}tikaud url* | untuk mengambil musik saja dari tiktok
 *${this.prefix}tikvid url* | untuk mengambil video saja dari tiktok
 *${this.prefix}yta url* | untuk mengambil musik saja dari youtube
-*${this.prefix}ytv url* | untuk mengambil video saja dari youtube`
+*${this.prefix}ytv url* | untuk mengambil video saja dari youtube
+*${this.prefix}xnxx url sd* | untuk mengambil video dari xnxx dengan kualitas rendah
+*${this.prefix}xnxx url hd* | untuk mengambil video dari xnxx dengan kualitas tinggi`
     }
 }
 

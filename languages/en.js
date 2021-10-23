@@ -23,14 +23,9 @@ Features available on this bot
                     rowId: `${this.prefix}tiktok`
                 },
                 {
-                    title: "YouTube Audio",
-                    description: "Download music from YouTube",
-                    rowId: `${this.prefix}yta`
-                },
-                {
-                    title: "YouTube Video",
-                    description: "Download video from YouTube",
-                    rowId: `${this.prefix}ytv`
+                    title: "YouTube",
+                    description: "Download music/video from YouTube",
+                    rowId: `${this.prefix}yt`
                 },
                 {
                     title: "Twitter",
@@ -92,7 +87,7 @@ Features available on this bot
 
     err(cmd) {
         return {
-            sticker: [`Send image with caption *${this.prefix+cmd}*`, `Example : *${this.prefix+cmd} text*`, "An error occurred"],
+            sticker: [`Send image with caption *${this.prefix+cmd}*`, `Example : *${this.prefix+cmd} text*`, "An error occurred", `Send image or image with caption *${this.prefix+cmd}*`],
             deel: `Example : *${this.prefix+cmd} url*`,
             invalid: "Invalid url"
         }
@@ -103,7 +98,17 @@ Features available on this bot
             return `👍 Likes : ${res.likes}\n🗯️ Comments : ${res.comments}\n↪️ Shares : ${res.shares}\n👀 Views : ${res.plays}\n🎶 ${res.music.title} (${res.music.author})\n👤 ${res.author.username} (${res.author.name})\n📃 ${res.description}`
         } else if (type === "youtube") {
             return `📍 Title : ${res.title}\n👍 Likes : ${res.likes}\n👎 Dislikes : ${res.dislikes}\n👀 Views : ${res.views}`
+        } else if (type === "xnxx") {
+            return `📍 Title : ${res.title}\n👀 Views : ${res.views}\n⏳ Duration : ${res.duration}\n📃 ${res.description}`
         }
+    }
+
+    large(url) {
+        return `The file size is too large, whatsapp doesn't support sending videos that are too large\nLink video : ${url}`
+    }
+
+    wait() {
+        return "𓊈Roger𓊉 Please wait ......"
     }
 
     footer() {
@@ -112,7 +117,9 @@ type this command
 *${this.prefix}tikaud url* | for get music only from tiktok
 *${this.prefix}tikvid url* | for get video only from tiktok
 *${this.prefix}yta url* | for get music only from youtube
-*${this.prefix}ytv url* | foe get video only from youtube`
+*${this.prefix}ytv url* | for get video only from youtube
+*${this.prefix}xnxx url sd* | for get video from xnxx (sd quality)
+*${this.prefix}xnxx url hd* | for get video from xnxx (hd quality)`
     }
 }
 
