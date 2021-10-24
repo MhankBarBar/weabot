@@ -27,7 +27,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
         const anteicodes = new anteiku(settings.anteikey) // signup to antei.codes if you want to get token/apikey
         const cmd = body && body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : ""
         const isCmd = body && body.startsWith(prefix) ? true : false
-        const args = body ? body.trim().split(/ +/).slice(prefix.length) : []
+        const args = body ? body.trim().split(/ +/).slice(1) : []
         const time = moment(timestamp * 1000).format("DD/MM/YY HH:mm:ss")
         const groupMetadata = isGroup ? await BarBar.groupMetadata(from) : ""
         const groupId = isGroup ? groupMetadata.id : ""
