@@ -12,6 +12,15 @@ exports.basic = async (BarBar, mek, err) => {
     }
 }
 
+exports.wm = async (BarBar, mek, err, opts={}) => {
+    try {
+        return BarBar.sendImageAsSticker(mek, mek.isMedia ? await mek.getMedia() : await mek.quoted.getMedia(), mek.isGroup ? mek : false, opts)
+    } catch (e) {
+        console.log(`sticker err : ${e}`)
+        mek.reply(err[2])
+    }
+}
+
 exports.lightning = async (BarBar, mek, antei, err) => {
     let temp = rand(".jpg")
     write(temp, mek.isMedia ? await mek.getMedia() : await mek.quoted.getMedia())

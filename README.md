@@ -8,7 +8,6 @@
 ```bash
 > apt install nodejs
 > apt install ffmpeg
-> apt install libwebp # replace to libwebp-dev if you not using termux
 > npm i
 ```
 

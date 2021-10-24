@@ -88,7 +88,16 @@ module.exports = msgHndlr = async (BarBar, mek) => {
             case "stiker":
             case "sticker":
             case "s":
-                if ((isMedia && type === MessageType.image || isQuotedImage) || (isMedia && type === MessageType.video || isQuotedVideo)) return await sticker.basic(BarBar, mek, help.err(cmd).sticker)
+                if ((isMedia && type === MessageType.image || isQuotedImage) || (isMedia && type === MessageType.video || isQuotedVideo) && args.length !== 0) {
+                    let su = body.slice(cmd.length+prefix.length).trim().split("|")
+                    let opt = {}
+                    opt.name = su[0]
+                    opt.author = su[1]
+                    opt.categories = su.length > 2 ? [su[2]] : [""]
+                    return await sticker.wm(BarBar, mek, help.err(cmd).sticker, opt)
+                } else if ((isMedia && type === MessageType.image || isQuotedImage) || (isMedia && type === MessageType.video || isQuotedVideo)) {
+                    return await sticker.basic(BarBar, mek, help.err(cmd).sticker)
+                }
                 return mek.reply(help.err(cmd).sticker[3])
 
             case "stikerburn":
@@ -104,10 +113,12 @@ module.exports = msgHndlr = async (BarBar, mek) => {
                 return mek.reply(help.err(cmd).sticker[0])
 
             case "ttp":
+                if (quoted && quoted.body) return sticker.ttp(BarBar, mek, quoted.body, anteicodes, help.err(cmd).sticker)
                 if (args.length === 0) return mek.reply(help.err(cmd).sticker[1])
                 return await sticker.ttp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
 
             case "attp":
+                if (quoted && quoted.body) return sticker.ttp(BarBar, mek, quoted.body, anteicodes, help.err(cmd).sticker)
                 if (args.length === 0) return mek.reply(help.err(cmd).sticker[1])
                 return await sticker.attp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
             /* ------> [ End ] <------ */
