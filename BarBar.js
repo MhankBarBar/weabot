@@ -25,7 +25,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
         const { from, sender, pushname, body, quoted, timestamp, type, isGroup, isMedia, id, fromMe, getMedia, mentions } = mek
         const help = new lang[bhs](prefix)
         const anteicodes = new anteiku(settings.anteikey) // signup to antei.codes if you want to get token/apikey
-        const cmd = body && body.startsWith(prefix) ? body.slice(1).trim().split(/ +/).shift().toLowerCase() : ""
+        const cmd = body && body.startsWith(prefix) ? body.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : ""
         const isCmd = body && body.startsWith(prefix) ? true : false
         const args = body ? body.trim().split(/ +/).slice(1) : []
         const time = moment(timestamp * 1000).format("DD/MM/YY HH:mm:ss")
@@ -104,11 +104,11 @@ module.exports = msgHndlr = async (BarBar, mek) => {
                 return mek.reply(help.err(cmd).sticker[0])
 
             case "ttp":
-                if (args.length === 0) return mek.reply(help.err(cmd)[1])
+                if (args.length === 0) return mek.reply(help.err(cmd).sticker[1])
                 return await sticker.ttp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
 
             case "attp":
-                if (args.length === 0) return mek.reply(help.err(cmd)[1])
+                if (args.length === 0) return mek.reply(help.err(cmd).sticker[1])
                 return await sticker.attp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
             /* ------> [ End ] <------ */
 
