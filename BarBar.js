@@ -118,7 +118,7 @@ module.exports = msgHndlr = async (BarBar, mek) => {
                 return await sticker.ttp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
 
             case "attp":
-                if (quoted && quoted.body) return sticker.ttp(BarBar, mek, quoted.body, anteicodes, help.err(cmd).sticker)
+                if (quoted && quoted.body) return sticker.attp(BarBar, mek, quoted.body, anteicodes, help.err(cmd).sticker)
                 if (args.length === 0) return mek.reply(help.err(cmd).sticker[1])
                 return await sticker.attp(BarBar, mek, args.join(" "), anteicodes, help.err(cmd).sticker)
             /* ------> [ End ] <------ */
