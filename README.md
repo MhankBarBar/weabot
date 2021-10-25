@@ -32,9 +32,9 @@
 
 ### Features
 ------------------
-- [x] YouTube Downloader
-- [x] TikTok Downloader
-- [x] XnXx Downloader
+- [x] YouTube Downloader <details><summary>Screenshot</summary><img src="https://i.ibb.co/X2KbbL0/Screenshot-2021-10-25-10-59-18-79.jpg"></details>
+- [x] TikTok Downloader <details><summary>Screenshot</summary><img src="https://i.ibb.co/1LWyjSC/Screenshot-2021-10-25-11-03-10-02.jpg"></details>
+- [x] XnXx Downloader <details><summary>Screenshot</summary><img src="https://i.ibb.co/Jqkqk4Z/Screenshot-2021-10-25-11-05-14-67.jpg"></details>
 - [x] Image/Video to sticker
 - [x] Image to sticker burnfire
 - [x] Image to sticker lightning
